@@ -52,3 +52,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar{
+	archiveFileName = 'contact-api-0.0.1-SNAPSHOT.jar'
+}
