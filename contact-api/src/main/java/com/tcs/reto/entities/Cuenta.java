@@ -25,7 +25,7 @@ public class Cuenta {
     private Boolean estado;
 
     @NotNull(message = "Debe especificar un cliente")
-    //@Valid
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

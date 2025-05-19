@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-//@MappedSuperclass
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
@@ -35,6 +34,4 @@ public class Persona {
 
     @NotBlank(message = "El teléfono es obligatorio")
     private String telefono;
-
-
 }

@@ -31,7 +31,6 @@ public class MovimientoService {
         return movimientoRepository.findAll();
     }
 
-    // F2: Registrar movimiento
     public Movimiento registrarMovimiento(Movimiento movimiento) {
         Cuenta cuenta = cuentaRepository.findById(movimiento.getCuenta().getNumeroCuenta())
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -41,7 +40,6 @@ public class MovimientoService {
         double saldoActual = cuenta.getSaldo();
         double monto = movimiento.getValor();
 
-        // Determinar si sumar o restar según tipoMovimiento
         if (movimiento.getTipoMovimiento().equalsIgnoreCase("Retiro")) {
             monto = -Math.abs(monto);
         } else if (movimiento.getTipoMovimiento().equalsIgnoreCase("Depósito")) {
@@ -56,11 +54,9 @@ public class MovimientoService {
             throw new RuntimeException("Saldo no disponible");
         }
 
-        // Actualiza la cuenta
         cuenta.setSaldo(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
-        // Guarda el movimiento
         movimiento.setValor(monto);
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setFecha(LocalDate.now());
@@ -68,7 +64,6 @@ public class MovimientoService {
         return movimientoRepository.save(movimiento);
     }
 
-    // F4: Reporte por cliente y fechas
     public List<ReporteMovimientoDTO> obtenerReporte(Long clienteId, LocalDate desde, LocalDate hasta) {
         Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con ID: " + clienteId));
@@ -93,7 +88,6 @@ public class MovimientoService {
                 ));
             }
         }
-
         return reporte;
     }
 }
