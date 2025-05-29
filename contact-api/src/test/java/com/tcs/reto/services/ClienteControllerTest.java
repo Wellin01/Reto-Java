@@ -14,8 +14,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 public class ClienteControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -23,23 +23,23 @@ public class ClienteControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void debeCrearClienteExitosamente() throws Exception {
+    void debeCrearClienteJoseLema() throws Exception {
         Cliente cliente = new Cliente();
-        cliente.setNombre("Test User");
+        cliente.setNombre("Jose Lema");
         cliente.setGenero("Masculino");
-        cliente.setEdad(28);
-        cliente.setIdentificacion("9999999999");
-        cliente.setDireccion("Calle Falsa 123");
-        cliente.setTelefono("0909090909");
-        cliente.setContrasena("clave123");
+        cliente.setEdad(30);
+        cliente.setIdentificacion("1234567890");
+        cliente.setDireccion("Otavalo sn y principal");
+        cliente.setTelefono("0982547850");
+        cliente.setContrasena("Jose1234");
         cliente.setEstado(true);
 
         mockMvc.perform(post("/clientes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cliente)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombre").value("Test User"))
-                .andExpect(jsonPath("$.identificacion").value("9999999999"));
+                .andExpect(jsonPath("$.nombre").value("Jose Lema"))
+                .andExpect(jsonPath("$.telefono").value("0982547850"))
+                .andExpect(jsonPath("$.estado").value(true));
     }
-
 }

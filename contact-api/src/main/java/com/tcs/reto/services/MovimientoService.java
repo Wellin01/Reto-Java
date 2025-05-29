@@ -37,26 +37,35 @@ public class MovimientoService {
                         "No se encontró la cuenta con número: " + movimiento.getCuenta().getNumeroCuenta()
                 ));
 
+        if (!Boolean.TRUE.equals(cuenta.getEstado())) {
+            throw new IllegalStateException("La cuenta está inactiva y no permite movimientos.");
+        }
+
         double saldoActual = cuenta.getSaldo();
         double monto = movimiento.getValor();
+
+        if (movimiento.getTipoMovimiento() == null) {
+            throw new IllegalArgumentException("El tipo de movimiento es obligatorio.");
+        }
 
         if (movimiento.getTipoMovimiento().equalsIgnoreCase("Retiro")) {
             monto = -Math.abs(monto);
         } else if (movimiento.getTipoMovimiento().equalsIgnoreCase("Depósito")) {
             monto = Math.abs(monto);
         } else {
-            throw new RuntimeException("Tipo de movimiento inválido. Usa 'Retiro' o 'Depósito'.");
+            throw new IllegalArgumentException("Tipo de movimiento inválido. Usa Retiro o Depósito.");
         }
 
         double nuevoSaldo = saldoActual + monto;
 
         if (nuevoSaldo < 0) {
-            throw new RuntimeException("Saldo no disponible");
+            throw new IllegalStateException("Saldo no disponible para realizar el retiro.");
         }
 
         cuenta.setSaldo(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
+        movimiento.setCuenta(cuenta);
         movimiento.setValor(monto);
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setFecha(LocalDate.now());

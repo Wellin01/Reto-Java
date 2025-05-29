@@ -1,37 +1,40 @@
 package com.tcs.reto.entities;
-import jakarta.validation.constraints.*;
+
 import jakarta.persistence.*;
-import lombok.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import lombok.Data;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+
+@MappedSuperclass
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class Persona {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
+    @Pattern(regexp = "^[^\\d]*$", message = "El nombre no debe contener números")
     private String nombre;
 
-    @NotBlank(message = "El género es obligatorio")
+    @Pattern(
+            regexp = "^(Masculino|Femenino|No binario)$",
+            message = "El género debe ser Masculino, Femenino o No binario"
+    )
     private String genero;
 
-    @Min(value = 1, message = "La edad debe ser mayor a 0")
-    private int edad;
+    @NotNull(message = "La edad es obligatoria")
+    @Min(value = 18, message = "La edad mínima es 18")
+    private Integer edad;
 
     @NotBlank(message = "La identificación es obligatoria")
+    @Pattern(regexp = "^\\d{10}$", message = "La identificación debe tener 10 dígitos numéricos")
     private String identificacion;
 
     @NotBlank(message = "La dirección es obligatoria")
     private String direccion;
 
     @NotBlank(message = "El teléfono es obligatorio")
+    @Pattern(regexp = "^\\d{10}$", message = "El teléfono debe tener 10 dígitos numéricos")
     private String telefono;
 }
