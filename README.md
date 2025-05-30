@@ -221,7 +221,7 @@ La aplicación permite:
 ```
 ### Endpoint: `/cuentas`
 
-- **POST** `http://localhost:8080/cuentas`
+- **POST** `localhost:8080/cuentas`
 
 ❌ JSON no válido:
 ```json
@@ -260,7 +260,7 @@ La aplicación permite:
   }
 }
 ```
-- **GET** `http://localhost:8080/cuentas`
+- **GET** `localhost:8080/cuentas`
 ```json
 [
     {
