@@ -454,10 +454,13 @@ La aplicación permite:
 ## Pruebas Exitosas
 
 - Prueba Unitaria: ClienteServiceTest.java
+
 ![image](https://github.com/user-attachments/assets/c1bd5549-5e67-4707-ac61-1c0c276dd577)
 
 - Prueba de Integración: ClienteControllerTest.java
+
 ![image](https://github.com/user-attachments/assets/a0f320bd-ffb8-47c3-b05f-87d3923222c4)
+
 
 ##  📝 Licencia
 Este proyecto fue desarrollado con fines prácticos para TCS. Derechos reservados por el autor.
